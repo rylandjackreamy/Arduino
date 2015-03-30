@@ -5,137 +5,136 @@ void setup() {
   Serial.begin(9600);
 }
 
-int ret;
-int  letters(char l){
-  if (l=="a"){
-    ret[] = {
+int ret[] = {};
+void letters(char l){
+  if (l=='a'){
+    int ret[] = {
       1, 3
     };
-  } else if (l=="b"){
-    ret[] = {
+  } else if (l=='b'){
+    int ret[] = {
       3, 1, 1, 1
     };
-  } else if (l=="c"){
-    ret[] = {
+  } else if (l=='c'){
+    int ret[] = {
       3, 1, 3, 1
     };
-  } else if (l=="d"){
-    ret[] = {
+  } else if (l=='d'){
+    int ret[] = {
       3, 1, 1
     };
-  } else if (l=="e"){
-    ret[] = {
+  } else if (l=='e'){
+    int ret[] = {
       1
     };
-  } else if (l=="f"){
-    ret[] = {
+  } else if (l=='f'){
+    int ret[] = {
       1, 1, 3, 1
     };
-  } else if (l=="g"){
-    ret[] = {
+  } else if (l=='g'){
+    int ret[] = {
       3, 3, 1
     };
-  } else if (l=="h"){
-    ret[] = {
+  } else if (l=='h'){
+    int ret[] = {
       1, 1, 1, 1
     };
-  } else if (l=="i"){
-    ret[] = {
+  } else if (l=='i'){
+    int ret[] = {
       1, 1
     };
-  } else if (l=="j"){
-    ret[] = {
+  } else if (l=='j'){
+    int ret[] = {
       1, 3, 3, 3
     };
-  } else if (l=="k"){
-    ret[] = {
+  } else if (l=='k'){
+    int ret[] = {
       3, 1, 3
     };
-  } else if (l=="l"){
-    ret[] = {
+  } else if (l=='l'){
+    int ret[] = {
       1, 3, 1, 1
     };
-  } else if (l=="m"){
-    ret[] = {
+  } else if (l=='m'){
+    int ret[] = {
       3, 3
     };
-  } else if (l=="n"){
-    ret[] = {
+  } else if (l=='n'){
+    int ret[] = {
       3, 1
     };
-  } else if (l=="o"){
-    ret[] = {
+  } else if (l=='o'){
+    int ret[] = {
       3, 3, 3
     };
-  } else if (l=="p"){
-    ret[] = {
+  } else if (l=='p'){
+    int ret[] = {
       1, 3, 3, 1
     };
-  } else if (l=="q"){
-    ret[] = {
+  } else if (l=='q'){
+    int ret[] = {
       3, 3, 1, 3
     };
-  } else if (l=="r"){
-    ret[] = {
+  } else if (l=='r'){
+    int ret[] = {
       1, 3, 1
     };
-  } else if (l=="s"){
-    ret[] = {
+  } else if (l=='s'){
+    int ret[] = {
       1, 1, 1
     };
-  } else if (l=="t"){
-    ret[] = {
+  } else if (l=='t'){
+    int ret[] = {
       3
     };
-  } else if (l=="u"){
-    ret[] = {
+  } else if (l=='u'){
+    int ret[] = {
       1, 1, 3
     };
-  } else if (l=="v"){
-    ret[] = {
+  } else if (l=='v'){
+    int ret[] = {
       1, 1, 1, 3
     };
-  } else if (l=="w"){
-    ret[] = {
+  } else if (l=='w'){
+    int ret[] = {
       1, 3, 3
     };
-  } else if (l=="x"){
-    ret[] = {
+  } else if (l=='x'){
+    int ret[] = {
       3, 1, 1, 3
     };
-  } else if (l=="y"){
-    ret[] = {
+  } else if (l=='y'){
+    int ret[] = {
       3, 1, 3, 3
     };
-  } else if (l=="z"){
-    ret[] = {
+  } else if (l=='z'){
+    int ret[] = {
       3, 3, 1, 1
     };
   } else {
-    ret[] = {
-    };
+    int ret[] = {};
   }
-  return ret
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   //get new string in
-  String in = "letters";
-  char[] letrs = in;
+  char letrs[] = {'l', 'e', 't', 't', 'e', 'r', 's'};
   int x = 0;
-  while(x < letrs.length()){
-    wait = letters(letrs[x]);
-    if(letrs[x] == " "){
+  while(x < sizeof(letrs)){
+    letters(letrs[x]);
+    if(letrs[x] == ' '){
       delay(t * 4);
     }
     int i = 0;
-    while(i < wait.length()){
+    while(i < sizeof(ret)){
       pinMode(13, HIGH);
-      delay(t * wait[i]);
+      delay(t * ret[i]);
       pinMode(13, LOW);
       delay(t);
+      i ++;
     }
     delay(t * 3);
+    x ++;
   }
 }
