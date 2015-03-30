@@ -1,6 +1,3 @@
-String in = "letters";
-char[] letrs;
-int[] wait;
 int t = 500;
 void setup() {
   // put your setup code here, to run once:
@@ -8,7 +5,7 @@ void setup() {
   Serial.begin(9600);
 }
 
-int ret[4];
+int ret;
 int  letters(char l){
   if (l=="a"){
     ret[] = {
@@ -124,14 +121,15 @@ int  letters(char l){
 void loop() {
   // put your main code here, to run repeatedly:
   //get new string in
-  letrs = in;
-  x = 0;
+  String in = "letters";
+  char[] letrs = in;
+  int x = 0;
   while(x < letrs.length()){
-    wait = letters(letrs[x])
+    wait = letters(letrs[x]);
     if(letrs[x] == " "){
-      delay(t * 7);
+      delay(t * 4);
     }
-    i = 0;
+    int i = 0;
     while(i < wait.length()){
       pinMode(13, HIGH);
       delay(t * wait[i]);
@@ -139,4 +137,5 @@ void loop() {
       delay(t);
     }
     delay(t * 3);
+  }
 }
