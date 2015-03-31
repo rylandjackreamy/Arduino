@@ -15,7 +15,7 @@ String letters(char l){ //takes in a character, outputs a string containing dots
   } else if (l=='d'){
     ret = "311";
   } else if (l=='e'){
-    ret = "e";
+    ret = "1";
   } else if (l=='f'){
     ret = "1131";
   } else if (l=='g'){
@@ -64,18 +64,29 @@ String letters(char l){ //takes in a character, outputs a string containing dots
   return ret;
 }
 
-int t = 100, del, d; // t is the length of a dot
+int t = 300, del, d; // t is the length of a dot
+
+String readd() {
+  String ret = "";
+  char in;
+  if (Serial.available() > 0){
+    in = Serial.read();
+    ret += in;
+  }
+  return ret;
+}
 
 void loop() {
   // need to get new String letrs via input, havent figured that out yet 
-  String letrs = "SoS";
+  String letrs = readd();
+  delay(t);
   letrs.toLowerCase();
   int x = 0;
   String wait = "";
   while(x < letrs.length()){
     wait = letters(letrs.charAt(x)); // gets dots & dashes for letter
     if(letrs[x] == ' '){
-      delay(t * 4); // if a space, wait longer
+      delay(t * 7); // if a space, wait longer
     }
     int i = 0;    
     while(i < wait.length()){
