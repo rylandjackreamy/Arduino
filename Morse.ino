@@ -1,135 +1,95 @@
-int t = 500;
 void setup() {
   // put your setup code here, to run once:
   pinMode(13, OUTPUT);
   Serial.begin(9600);
 }
 
-int ret[] = {};
-void letters(char l){
+String letters(char l){
+  String ret;
   if (l=='a'){
-    int ret[] = {
-      1, 3
-    };
+    ret = "13";
   } else if (l=='b'){
-    int ret[] = {
-      3, 1, 1, 1
-    };
+  ret = "3111";
   } else if (l=='c'){
-    int ret[] = {
-      3, 1, 3, 1
-    };
+    ret = "3131";
   } else if (l=='d'){
-    int ret[] = {
-      3, 1, 1
-    };
+    ret = "311";
   } else if (l=='e'){
-    int ret[] = {
-      1
-    };
+    ret = "e";
   } else if (l=='f'){
-    int ret[] = {
-      1, 1, 3, 1
-    };
+    ret = "1131";
   } else if (l=='g'){
-    int ret[] = {
-      3, 3, 1
-    };
+    ret = "331";
   } else if (l=='h'){
-    int ret[] = {
-      1, 1, 1, 1
-    };
+    ret = "1111";
   } else if (l=='i'){
-    int ret[] = {
-      1, 1
-    };
+    ret = "11";
   } else if (l=='j'){
-    int ret[] = {
-      1, 3, 3, 3
-    };
+    ret = "1333";
   } else if (l=='k'){
-    int ret[] = {
-      3, 1, 3
-    };
+    ret = "313";
   } else if (l=='l'){
-    int ret[] = {
-      1, 3, 1, 1
-    };
+    ret = "1331";
   } else if (l=='m'){
-    int ret[] = {
-      3, 3
-    };
+    ret = "33";
   } else if (l=='n'){
-    int ret[] = {
-      3, 1
-    };
+    ret = "31";
   } else if (l=='o'){
-    int ret[] = {
-      3, 3, 3
-    };
+    ret = "333";
   } else if (l=='p'){
-    int ret[] = {
-      1, 3, 3, 1
-    };
+    ret = "1331";
   } else if (l=='q'){
-    int ret[] = {
-      3, 3, 1, 3
-    };
+    ret = "3313";
   } else if (l=='r'){
-    int ret[] = {
-      1, 3, 1
-    };
+    ret = "131";
   } else if (l=='s'){
-    int ret[] = {
-      1, 1, 1
-    };
+    ret = "111";
   } else if (l=='t'){
-    int ret[] = {
-      3
-    };
+    ret = "3";
   } else if (l=='u'){
-    int ret[] = {
-      1, 1, 3
-    };
+    ret = "113";
   } else if (l=='v'){
-    int ret[] = {
-      1, 1, 1, 3
-    };
+    ret = "1113";
   } else if (l=='w'){
-    int ret[] = {
-      1, 3, 3
-    };
+    ret = "133";
   } else if (l=='x'){
-    int ret[] = {
-      3, 1, 1, 3
-    };
+    ret = "3113";
   } else if (l=='y'){
-    int ret[] = {
-      3, 1, 3, 3
-    };
+    ret = "3133";
   } else if (l=='z'){
-    int ret[] = {
-      3, 3, 1, 1
-    };
+    ret = "3311";
   } else {
-    int ret[] = {};
+    ret = "";
   }
+  return ret;
 }
 
+int t = 100, del, d;
+
 void loop() {
-  // put your main code here, to run repeatedly:
-  //get new string in
-  char letrs[] = {'l', 'e', 't', 't', 'e', 'r', 's'};
+  // get new string in
+  String letrs = "sOS is a Cool ProGram By JAck";
+  letrs.toLowerCase();
   int x = 0;
-  while(x < sizeof(letrs)){
-    letters(letrs[x]);
+  String wait = "";
+  while(x < letrs.length()){
+    wait = letters(letrs.charAt(x));
+    Serial.println(wait);
     if(letrs[x] == ' '){
       delay(t * 4);
     }
-    int i = 0;
-    while(i < sizeof(ret)){
+    int i = 0;    
+    while(i < wait.length()){
       digitalWrite(13, HIGH);
-      delay(t * ret[i]);
+      del = int(wait.charAt(i)) - 48;
+      Serial.println(del);
+      int j = 0;
+      d = 0;
+      while(j < del){
+        d += t;
+        j += 1;
+      }
+      delay(d);
       digitalWrite(13, LOW);
       delay(t);
       i ++;
