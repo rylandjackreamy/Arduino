@@ -128,9 +128,9 @@ void loop() {
     }
     int i = 0;
     while(i < sizeof(ret)){
-      pinMode(13, HIGH);
+      digitalWrite(13, HIGH);
       delay(t * ret[i]);
-      pinMode(13, LOW);
+      digitalWrite(13, LOW);
       delay(t);
       i ++;
     }
