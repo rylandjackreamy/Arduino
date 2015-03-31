@@ -4,7 +4,7 @@ void setup() {
   Serial.begin(9600);
 }
 
-String letters(char l){
+String letters(char l){ //takes in a character, outputs a string containing dots & dashes
   String ret;
   if (l=='a'){
     ret = "13";
@@ -64,28 +64,26 @@ String letters(char l){
   return ret;
 }
 
-int t = 100, del, d;
+int t = 100, del, d; // t is the length of a dot
 
 void loop() {
-  // get new string in
-  String letrs = "sOS is a Cool ProGram By JAck";
+  // need to get new String letrs via input, havent figured that out yet 
+  String letrs = "SoS";
   letrs.toLowerCase();
   int x = 0;
   String wait = "";
   while(x < letrs.length()){
-    wait = letters(letrs.charAt(x));
-    Serial.println(wait);
+    wait = letters(letrs.charAt(x)); // gets dots & dashes for letter
     if(letrs[x] == ' '){
-      delay(t * 4);
+      delay(t * 4); // if a space, wait longer
     }
     int i = 0;    
     while(i < wait.length()){
       digitalWrite(13, HIGH);
-      del = int(wait.charAt(i)) - 48;
-      Serial.println(del);
+      del = int(wait.charAt(i)) - 48; // converting from string to int added 48 for some reason...
       int j = 0;
       d = 0;
-      while(j < del){
+      while(j < del){ // some multiplication because that was having trouble
         d += t;
         j += 1;
       }
@@ -94,7 +92,7 @@ void loop() {
       delay(t);
       i ++;
     }
-    delay(t * 3);
+    delay(t * 3); // time between letter
     x ++;
   }
 }
