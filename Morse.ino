@@ -1,13 +1,12 @@
 void setup() {
-  // put your setup code here, to run once:
   pinMode(13, OUTPUT);
   Serial.begin(9600);
 }
 
 String letters(char l){ //takes in a character, outputs a string containing dots & dashes
-  String ret;
-  if (l=='a'){
-    ret = "13";
+  String ret; // ret is a local variable which will be returned as the function output
+  if (l=='a'){ 
+    ret = "13"; // 1 for dot 3 for dash
   } else if (l=='b'){
   ret = "3111";
   } else if (l=='c'){
@@ -58,33 +57,52 @@ String letters(char l){ //takes in a character, outputs a string containing dots
     ret = "3133";
   } else if (l=='z'){
     ret = "3311";
+  } else if (l == '1'){
+    ret = "13333";
+  } else if (l == '2'){
+    ret = "11333";
+  } else if (l == '3'){
+    ret = "11133";
+  } else if (l == '4'){
+    ret = "11113";
+  } else if (l == '5'){
+    ret = "11111";
+  } else if (l == '6'){
+    ret = "31111";
+  } else if (l == '7'){
+    ret = "33111";
+  } else if (l == '8'){
+    ret = "33311";
+  } else if (l == '9'){
+    ret = "33331";
+  } else if (l == '0'){
+    ret = "33333";
   } else {
-    ret = "";
+    ret = ""; // if its not a letter or number ignore it
   }
   return ret;
 }
 
-int t = 300, del, d; // t is the length of a dot
+int t = 300, del, d; // t is the length of a dot.  del is the time to delay.  d is used in some computation
 
 String readd() {
-  String ret = "";
-  char in;
-  if (Serial.available() > 0){
+  String ret = ""; // again ret is a return variable
+  char in; // char is the character input
+  if (Serial.available() > 0){ // loop strings together the input
     in = Serial.read();
-    ret += in;
+    ret += in; // appends the input character to the return string
   }
   return ret;
 }
 
 void loop() {
-  // need to get new String letrs via input, havent figured that out yet 
-  String letrs = readd();
-  delay(t);
-  letrs.toLowerCase();
+  String letrs = readd(); // takes the input string given by the function readd
+  delay(t); 
+  letrs.toLowerCase(); // puts the whole string in lower case
   int x = 0;
   String wait = "";
   while(x < letrs.length()){
-    wait = letters(letrs.charAt(x)); // gets dots & dashes for letter
+    wait = letters(letrs.charAt(x)); // passes a character from the string into letters to get out dots and dashes
     if(letrs[x] == ' '){
       delay(t * 7); // if a space, wait longer
     }
@@ -103,7 +121,7 @@ void loop() {
       delay(t);
       i ++;
     }
-    delay(t * 3); // time between letter
+    delay(t * 3); // time between letter is the same as a dash
     x ++;
   }
 }
