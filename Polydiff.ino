@@ -41,16 +41,22 @@ String diff() {
           coef = coef * powow;
           powow -= 1;
           if (input.charAt(i) == '+' || input.charAt(i) == '-'){
-            ending = input[i];
+            ending = String(input.charAt(i));
           } else {
             ending = "";
           }
           if (powow > 1){
-            ret += String(coef) + "x^" + String(powow) + ending;
+            ret += String(coef);
+            ret += "x^";
+            ret += String(powow);
+            ret += ending;
           } else {
-            ret += String(coef) + "x" + ending;
+            ret += String(coef);
+            ret += "x";
+            ret += ending;
           }
         } else {
+          int coef = coefficient.toInt();
           ret += String(coef) + ending;
         }
       }
