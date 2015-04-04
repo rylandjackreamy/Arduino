@@ -12,19 +12,20 @@ String readd() {
   return in;
 }
 
-
-String diff() {
-  int i = -1, j;
+String diff(String input) {
+  int i = 0, j;
   String ret = "";
   int place = 0;
+  char lastchar = 'y';
   String working = "", coefficient, power, ending = "", last = "";
-  String input = readd();
+  working += input.charAt(i);
   do {
     i ++;
     coefficient = "";
     power = "";
-    if (input.charAt(i) != '+' && input.charAt(i) != '-' && i < input.length()){
+    if (lastchar == '^' || input.charAt(i) != '+' && input.charAt(i) != '-' && i < input.length()){
       working += input.charAt(i);
+      lastchar = input.charAt(i);
     } else {
       j = 0;
       coefficient = "";
@@ -37,17 +38,30 @@ String diff() {
         j++;
       }
       if (working.charAt(j) == 'x'){
+        int coef = coefficient.toInt();
+        if (last == "-"){
+          coef *= -1;
+          last == "";
+        }        
         if (working.charAt(j + 1) == '^') {
           j += 2;
           while (j < working.length()){
             power += working.charAt(j);
             j++;
           }
-          int coef = coefficient.toInt();
           int powow = power.toInt();
           coef = coef * powow;
+          if (coef > 0){
+            if (ret != ""){
+              last = "+";
+            } else {
+              last = "";
+            }
+          } else {
+            last = "";
+          }
           powow -= 1;
-          if (powow > 1){
+          if (powow != 1){
             ret += last;
             ret += String(coef);
             ret += "x^";
@@ -74,12 +88,13 @@ String diff() {
       }
     }
   } while(i < input.length());
+  if (ret == ""){
+    ret = "0";
+  }
   return ret;
 }
 
-
-
-
 void loop(){
-  Serial.println(diff());
+  Serial.println(diff(readd()));
+  Serial.println();
 }
