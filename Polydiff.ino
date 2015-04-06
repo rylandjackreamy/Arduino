@@ -1,8 +1,23 @@
 
+/* coded by:
+  Brian
+  Timmy
+  Jack
+*/
+
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
+  pinMode(13, OUTPUT);
+}
+
+boolean pinon;
+
+void pin(){
+  delay(100);
+  pinon = !pinon;
+  digitalWrite(13, pinon);
 }
 
 String readd() {
@@ -19,6 +34,7 @@ String diff(String input) {
   char lastchar = 'y';
   String working = "", coefficient, power, ending = "", last = "";
   working += input.charAt(i);
+  pin();
   do {
     i ++;
     coefficient = "";
@@ -26,22 +42,25 @@ String diff(String input) {
     if (lastchar == '^' || input.charAt(i) != '+' && input.charAt(i) != '-' && i < input.length()){
       working += input.charAt(i);
       lastchar = input.charAt(i);
+      pin();
     } else {
       j = 0;
       coefficient = "";
       power = "";
       if (working.charAt(j) == 'x'){
         coefficient = "1";
+        pin();
       }
       while(working.charAt(j) != 'x' && j < working.length()) {
         coefficient += working.charAt(j);
         j++;
       }
       if (working.charAt(j) == 'x'){
-        int coef = coefficient.toInt();
+        float coef = coefficient.toFloat();
         if (last == "-"){
           coef *= -1;
           last == "";
+          pin();
         }        
         if (working.charAt(j + 1) == '^') {
           j += 2;
@@ -49,7 +68,7 @@ String diff(String input) {
             power += working.charAt(j);
             j++;
           }
-          int powow = power.toInt();
+          float powow = power.toFloat();
           coef = coef * powow;
           if (coef > 0){
             if (ret != ""){
@@ -57,6 +76,7 @@ String diff(String input) {
             } else {
               last = "";
             }
+            pin();
           } else {
             last = "";
           }
@@ -73,11 +93,13 @@ String diff(String input) {
             ret += "x";
             working = "";
           }
+          pin();
         } else {
-          int coef = coefficient.toInt();
+          float coef = coefficient.toFloat();
           ret += last + String(coef);
           working = "";
         }
+        pin();
         if (input.charAt(i) == '+' || input.charAt(i) == '-'){
           last = String(input.charAt(i));
         } else {
@@ -96,5 +118,6 @@ String diff(String input) {
 
 void loop(){
   Serial.println(diff(readd()));
+  digitalWrite(13, LOW);
   Serial.println();
 }
