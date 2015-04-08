@@ -21,11 +21,11 @@ String chunk(String chunkIn){
       chunkS += chunkIn.charAt(i);
     }
   }
-  if (op == '/'){
-    int pl = 0;
-    while (pl < chunkF){
-      
-    }
+  if (frack) {
+    if (op == 
+  else {
+    if (op == '/'){
+      // figure out how to use long devision
 }
 
 
