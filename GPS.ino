@@ -15,34 +15,36 @@ void setup(){
 String posit(){
   float latitude, longitude;
   gps.f_get_position(&latitude, &longitude);
-  return (String(latitude) + ", " + String(longitude))
+  return (String(latitude) + ", " + String(longitude));
 }
 
 String time(){
   int year;
   byte month, day, hour, minute, second, hundredths;
   gps.crack_datetime(&year,&month,&day,&hour,&minute,&second,&hundredths);
-  return (String(hour) + ":" + String(minute) + ":" + String(second) + "." + String(hundredths))
+  return (String(hour) + ":" + String(minute) + ":" + String(second) + "." + String(hundredths));
 }
 
 String GPS(char task){ 
   while (serialgps.available()){}
   int c = serialgps.read(); 
+  String ret = "";
   if (gps.encode(c)){
     if (task == 't'){ // t for time
-      ret = time()
+      ret = time();
     } else if (task == 'p'){ // p for position
-      ret = posit()
+      ret = posit();
     } else if (task == 'a'){ // a for altitude
-      ret = gps.f_altitude()
+      ret = String(gps.f_altitude());
     } else if (task == 'c'){ // c for course
-      ret = gps.f_course()
+      ret = String(gps.f_course());
     } else if (task == 's'){ // s for speed
-      ret = gps.f_speed_mph()
+      ret = String(gps.f_speed_mph());
     } else if (task == 'n'){ // n for number of satelites
-      ret = gps.satellites()
+      ret = String(gps.satellites());
     }
     gps.stats(&chars, &sentences, &failed_checksum);
+    return ret;
   }
 }
 
