@@ -1,52 +1,41 @@
-
 #include <SoftwareSerial.h>
 #include <TinyGPS.h>
 
 TinyGPS gps;
 SoftwareSerial serialgps(2,3);
 
-unsigned long chars;
+int year, Satellites;
+float latitude, longitude, Altitude;
+byte month, day, hour, minute, second, hundredths;
+unsigned long chars, Speed, Course;
 unsigned short sentences, failed_checksum;
 
 void setup(){
+  Serial.begin(115200);
   serialgps.begin(4800);
 }
 
-String posit(){
-  float latitude, longitude;
-  gps.f_get_position(&latitude, &longitude);
-  return (String(latitude) + ", " + String(longitude));
-}
-
-String time(){
-  int year;
-  byte month, day, hour, minute, second, hundredths;
-  gps.crack_datetime(&year,&month,&day,&hour,&minute,&second,&hundredths);
-  return (String(hour) + ":" + String(minute) + ":" + String(second) + "." + String(hundredths));
-}
-
-String GPS(char task){ 
-  while (serialgps.available()){}
-  int c = serialgps.read(); 
-  String ret = "";
-  if (gps.encode(c)){
-    if (task == 't'){ // t for time
-      ret = time();
-    } else if (task == 'p'){ // p for position
-      ret = posit();
-    } else if (task == 'a'){ // a for altitude
-      ret = String(gps.f_altitude());
-    } else if (task == 'c'){ // c for course
-      ret = String(gps.f_course());
-    } else if (task == 's'){ // s for speed
-      ret = String(gps.f_speed_mph());
-    } else if (task == 'n'){ // n for number of satelites
-      ret = String(gps.satellites());
+void GPSAll(){
+  while(!serialgps.available()){}
+  while(serialgps.available()){
+    int c = serialgps.read(); 
+    if(gps.encode(c)){
+      gps.f_get_position(&latitude, &longitude);
+      gps.crack_datetime(&year,&month,&day,&hour,&minute,&second,&hundredths);
+      Altitude = gps.f_altitude(); 
+      Course = gps.f_course(); 
+      Speed = gps.f_speed_kmph();
+      Satellites = gps.satellites();
+      gps.stats(&chars, &sentences, &failed_checksum);
     }
-    gps.stats(&chars, &sentences, &failed_checksum);
-    return ret;
   }
 }
 
 void loop(){
+  while(Satellites < 1){
+    GPSAll();
+  }
+  GPSAll();
+  Serial.println(latitude);
+  delay(1000);
 }
