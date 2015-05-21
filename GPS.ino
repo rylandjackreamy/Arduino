@@ -24,7 +24,7 @@ void GPSAll(){
       gps.crack_datetime(&year,&month,&day,&hour,&minute,&second,&hundredths);
       Altitude = gps.f_altitude(); 
       Course = gps.f_course(); 
-      Speed = gps.f_speed_kmph();
+      Speed = gps.f_speed_mps();
       Satellites = gps.satellites();
       gps.stats(&chars, &sentences, &failed_checksum);
     }
@@ -36,6 +36,7 @@ void loop(){
     GPSAll();
   }
   GPSAll();
-  Serial.println(latitude);
+  Serial.println(Satellites);
   delay(1000);
+  Satellites = 0;
 }
